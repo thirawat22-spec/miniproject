@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เพิ่มตัวละคร</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .box {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 10px;
+            width: 360px;
+            margin: auto;
+            text-align: left;
+        }
+        h2 { color: #38bdf8; text-align: center; margin-bottom: 20px; }
+        label { display: block; margin: 12px 0 4px; color: #94a3b8; font-size: 13px; }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: #0f172a;
+            color: white;
+            box-sizing: border-box;
+        }
+        input[type="file"] {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn-save {
+            flex: 1;
+            padding: 10px;
+            background: #22c55e;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .btn-back {
+            flex: 1;
+            padding: 10px;
+            background: #334155;
+            border: none;
+            border-radius: 6px;
+            color: #94a3b8;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>➕ เพิ่มตัวละคร</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label>Role</label>
+        <select name="role">
+            <option>Top</option>
+            <option>Jungle</option>
+            <option>Mid</option>
+            <option>ADC</option>
+            <option>Support</option>
+        </select>
+
+        <label>ชื่อ Champion</label>
+        <input type="text" name="champion" placeholder="เช่น Ahri, Jinx, Yasuo" required>
+
+        <label>รูปภาพ (ไม่บังคับ)</label>
+        <input type="file" name="image" accept="image/*">
+
+        <div class="btn-row">
+            <a class="btn-back" href="/dashboard">← กลับ</a>
+            <button class="btn-save" type="submit">💾 บันทึก</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

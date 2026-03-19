@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            margin: 40px auto;
+            max-width: 720px;
+        }
+        h2 { color: #38bdf8; }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .btn-add {
+            padding: 10px 20px;
+            background: #22c55e;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+            text-decoration: none;
+        }
+        .champion-list { list-style: none; padding: 0; }
+        .champion-card {
+            background: #1e293b;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 16px;
+        }
+        .champion-card img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #334155;
+        }
+        .no-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
+            background: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .champion-info { flex: 1; }
+        .champion-info .name { font-weight: bold; font-size: 16px; }
+        .champion-info .role { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+        .champion-info .owner { font-size: 11px; color: #475569; margin-top: 4px; }
+        .actions a { margin-left: 10px; text-decoration: none; font-size: 14px; }
+        .edit { color: #facc15; }
+        .delete { color: #f87171; }
+        .logout { color: #94a3b8; font-size: 14px; }
+        hr { border-color: #334155; margin: 20px 0; }
+        .empty { color: #94a3b8; text-align: center; padding: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <h2>⚔️ รายการตัวละคร LoL</h2>
+    <a class="btn-add" href="/add">➕ เพิ่มตัวละคร</a>
+</div>
+
+<ul class="champion-list">
+{% for row in data %}
+    <li class="champion-card">
+        {% if row['image'] %}
+            <img src="/static/uploads/{{ row['image'] }}" alt="{{ row['champion_name'] }}">
+        {% else %}
+            <div class="no-img">⚔️</div>
+        {% endif %}
+        <div class="champion-info">
+            <div class="name">{{ row['champion_name'] }}</div>
+            <div class="role">{{ row['role'] }}</div>
+            <div class="owner">โดย {{ row['username'] }}</div>
+        </div>
+
+        {# แสดงปุ่มเฉพาะเจ้าของ #}
+        {% if row['user_id'] == current_user_id %}
+        <span class="actions">
+            <a class="edit" href="/edit/{{ row['id'] }}">✏️ แก้ไข</a>
+            <a class="delete" href="/delete/{{ row['id'] }}"
+               data-name="{{ row['champion_name'] }}"
+               onclick="return confirm('ลบ ' + this.dataset.name + ' ?')">🗑️ ลบ</a>
+        </span>
+        {% endif %}
+    </li>
+{% else %}
+    <li class="champion-card empty">ยังไม่มีข้อมูล กด ➕ เพื่อเพิ่มตัวละคร</li>
+{% endfor %}
+</ul>
+
+<hr>
+<a class="logout" href="/logout">🚪 Logout</a>
+
+</body>
+</html>
